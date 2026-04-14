@@ -32,7 +32,7 @@ export default function index({
 
         function renderAndSetCacheKey() {
           return renderRoute(route, context).then(async function (result) {
-            if (!result.error && !result.redirected) {
+            if (!result.error && !result.redirected && result.html && !result.html.includes('data-degration')) {
               await redisStore.write(key, serialize(result), expire)
             }
             return result
